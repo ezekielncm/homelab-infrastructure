@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-11-09T00:00:00.000Z" agent="Mozilla/5.0" version="22.0.0" type="device">
+  <diagram name="Homelab Architecture" id="homelab-network">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Internet Cloud -->
+        <mxCell id="internet" value="INTERNET" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="40" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- pfSense Firewall -->
+        <mxCell id="pfsense" value="&lt;b&gt;pfSense Firewall&lt;/b&gt;&lt;br&gt;192.168.10.1&lt;br&gt;WAN: DHCP&lt;br&gt;LAN: 192.168.10.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Connection Internet to pfSense -->
+        <mxCell id="edge1" value="NAT" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="internet" target="pfsense">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="400" as="sourcePoint" />
+            <mxPoint x="600" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Internal Network Zone -->
+        <mxCell id="lan-zone" value="&lt;b&gt;INTERNAL NETWORK&lt;/b&gt;&lt;br&gt;192.168.10.0/24&lt;br&gt;HomelabLAN" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="380" width="700" height="300" as="geometry" />
+        </mxCell>
+        
+        <!-- Ubuntu Server -->
+        <mxCell id="ubuntu" value="&lt;b&gt;Ubuntu Server&lt;/b&gt;&lt;br&gt;192.168.10.10&lt;br&gt;SSH: 2222&lt;br&gt;Fail2Ban + UFW" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="250" y="480" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Windows Server -->
+        <mxCell id="windows" value="&lt;b&gt;Windows Server 2022&lt;/b&gt;&lt;br&gt;192.168.10.20&lt;br&gt;AD DS + DNS + DHCP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="480" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Kali Linux -->
+        <mxCell id="kali" value="&lt;b&gt;Kali Linux&lt;/b&gt;&lt;br&gt;192.168.10.30&lt;br&gt;Security Testing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="710" y="480" width="140" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Switch/Network connections -->
+        <mxCell id="switch" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn-icons-png.flaticon.com/512/3094/3094430.png" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="60" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections pfSense to Switch -->
+        <mxCell id="edge2" value="LAN" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#0000FF;" edge="1" parent="1" source="pfsense" target="switch">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="430" as="sourcePoint" />
+            <mxPoint x="600" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Connections Switch to VMs -->
+        <mxCell id="edge3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=1;strokeColor=#666666;" edge="1" parent="1" source="switch" target="ubuntu">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="430" as="sourcePoint" />
+            <mxPoint x="600" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="edge4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=1;strokeColor=#666666;" edge="1" parent="1" source="switch" target="windows">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="430" as="sourcePoint" />
+            <mxPoint x="600" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="edge5" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=1;strokeColor=#666666;" edge="1" parent="1" source="switch" target="kali">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="430" as="sourcePoint" />
+            <mxPoint x="600" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-box" value="&lt;b&gt;LÉGENDE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="950" y="40" width="180" height="180" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend1" value="WAN: Accès Internet" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="70" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend2" value="LAN: Réseau interne isolé" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="95" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend3" value="Firewall: pfSense" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="120" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend4" value="Serveurs: Ubuntu + Windows" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="145" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend5" value="Client: Kali Linux (tests)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="170" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Security Notes -->
+        <mxCell id="security-box" value="&lt;b&gt;SÉCURITÉ&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;verticalAlign=top;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="950" y="250" width="180" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec1" value="✅ Firewall restrictif" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="280" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec2" value="✅ SSH port 2222" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="305" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec3" value="✅ Fail2Ban actif" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="330" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec4" value="✅ GPO de sécurité" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="355" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec5" value="✅ DNS + DHCP sécurisés" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="380" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="sec6" value="✅ Logs centralisés" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="405" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Homelab Infrastructure Sécurisée&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;i&gt;Architecture réseau virtualisée - VirtualBox&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="710" width="700" height="60" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
