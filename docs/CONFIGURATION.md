@@ -1,4 +1,3 @@
-```markdown
 # ⚙️ Guide de Configuration - Homelab Infrastructure
 
 > 🔧 Configuration avancée de tous les services et mesures de sécurité

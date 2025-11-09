@@ -1,4 +1,3 @@
-```markdown
 # 📥 Guide d'Installation Détaillé - Homelab Infrastructure
 
 > 🎯 Ce guide vous accompagne pas à pas dans l'installation complète du homelab.
